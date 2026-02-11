@@ -1,0 +1,13 @@
+<ion-list>
+  <ion-item *ngFor="let item of items; trackBy: trackByFn">
+    <ion-label>
+      <h2> {{ item.name }}</h2>
+      <h3>Categoría: {{item.category}}</h3>
+      <p>ID Técnico: {{item.id}}</p>
+    </ion-label>
+  </ion-item>
+
+  <div *ngIf="items.length === 0">
+    <p> No hay ningún proceso en ejecución para optimizar </p>
+  </div>
+</ion-list>
