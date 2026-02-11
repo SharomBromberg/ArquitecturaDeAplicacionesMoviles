@@ -1,0 +1,25 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Task Manager Con Ionic
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-input [(ngModel)]="newTaskTitle" placeholder="Nueva tarea..."></ion-input>
+    <ion-button slot="end" (click)="saveTask()">Añadir</ion-button>
+  </ion-item>
+
+  <ion-list>
+    <ion-item *ngFor="let task of taskService.getTasks()">
+      <ion-label [style.text-decoration]="task.completed ? 'line-through' : 'none'">
+        {{ task.title }}
+      </ion-label>
+      <ion-checkbox slot="start" [checked]="task.completed" 
+                    (ionChange)="taskService.toggleTask(task.id)">
+      </ion-checkbox>
+    </ion-item>
+  </ion-list>
+</ion-content>

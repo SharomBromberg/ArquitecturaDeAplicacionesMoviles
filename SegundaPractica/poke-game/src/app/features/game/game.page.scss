@@ -1,0 +1,32 @@
+.score-display h1 {
+    font-size: 4rem;
+    font-weight: 900;
+    margin: 0;
+    color: var(--ion-color-danger);
+}
+
+.pokemon-container {
+    width: 260px;
+    height: 260px;
+    margin: 30px auto;
+    background: radial-gradient(circle, #fff 0%, #eee 100%);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 6px solid white;
+}
+
+.pokemon-img {
+    height: 180px;
+    transition: filter 0.8s ease-in-out, transform 0.3s ease;
+}
+
+.input-card {
+    --background: #f4f4f4;
+    --border-radius: 16px;
+    margin: 20px 0;
+    font-weight: bold;
+    font-size: 1.2rem;
+}

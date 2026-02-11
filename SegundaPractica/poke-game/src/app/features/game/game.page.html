@@ -1,0 +1,86 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="danger">
+    <ion-title>PokeGame Pro</ion-title>
+    <ion-buttons slot="end">
+      <ion-badge color="dark" class="ion-margin-end">Record: {{ highScore }}</ion-badge>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding ion-text-center">
+  <div *ngIf="loading" class="ion-padding">
+    <ion-spinner name="crescent" color="danger"></ion-spinner>
+    <p>Buscando en la hierba alta...</p>
+  </div>
+
+  <div *ngIf="currentPokemon && !loading">
+    <div class="score-display">
+      <ion-text color="medium">
+        <p>PUNTOS</p>
+      </ion-text>
+      <h1>{{ score }}</h1>
+    </div>
+
+    <div class="pokemon-container">
+      <img [src]="currentPokemon.imageUrl" [style.filter]="currentPokemon.getSpriteFilter()" class="pokemon-img" />
+    </div>
+
+    <h2 class="status-message">{{ message }}</h2>
+
+    <!-- Pistas -->
+    <ion-card *ngIf="currentPokemon" class="ion-margin-bottom">
+      <ion-card-header>
+        <ion-card-title>Pistas</ion-card-title>
+        <ion-card-subtitle>
+          Empieza con: <strong>{{ currentPokemon.getFirstLetter() }}</strong> ·
+          Termina con: <strong>{{ currentPokemon.getLastLetter() }}</strong>
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <!-- Tipos -->
+        <div class="ion-margin-bottom">
+          <ion-chip color="primary" *ngFor="let t of currentPokemon.types">
+            <ion-label>{{ t }}</ion-label>
+          </ion-chip>
+        </div>
+
+        <!-- Tipos de claves (resaltos) -->
+        <div class="ion-margin-bottom">
+          <ion-text color="medium">Tipos de claves:</ion-text>
+          <div class="ion-margin-top">
+            <ion-chip color="tertiary" *ngIf="currentPokemon.types?.includes('flying')">
+              <ion-label>flying</ion-label>
+            </ion-chip>
+            <ion-chip color="tertiary" *ngIf="currentPokemon.types?.includes('water')">
+              <ion-label>water</ion-label>
+            </ion-chip>
+            <ion-chip color="tertiary" *ngIf="currentPokemon.types?.includes('fire')">
+              <ion-label>fire</ion-label>
+            </ion-chip>
+          </div>
+        </div>
+
+        <!-- Habilidades -->
+        <div>
+          <ion-text color="medium">Talento:</ion-text>
+          <div class="ion-margin-top">
+            <ion-badge class="ion-margin" color="dark" *ngFor="let ab of currentPokemon.abilities">
+              {{ ab }}
+            </ion-badge>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-item lines="none" class="input-card">
+      <ion-input [(ngModel)]="userGuess" placeholder="Nombre del Pokémon" [disabled]="!currentPokemon.isHidden"
+        (keyup.enter)="checkAnswer()" class="ion-text-center">
+      </ion-input>
+    </ion-item>
+
+    <ion-button expand="block" shape="round" color="danger" (click)="checkAnswer()"
+      [disabled]="!userGuess || !currentPokemon.isHidden">
+      ¡Atrapar!
+    </ion-button>
+  </div>
+</ion-content>
